@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI for Neuroimaging – Chen Lab</title>
+  <meta name="description" content="Self‑supervised and contrastive representation learning for brain imaging." />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .breadcrumb { margin: 16px 0; color: var(--muted); }
+    .breadcrumb a { color: var(--muted); }
+    .content p { color: var(--muted); }
+    .meta-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin: 16px 0 8px; }
+    .meta { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; }
+    @media (max-width: 720px) { .meta-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <h1 class="site-title">Chen Lab</h1>
+        <p class="site-subtitle">AI & Computational Biology</p>
+      </div>
+      <nav class="nav">
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container section">
+    <div class="breadcrumb"><a href="../index.html">Home</a> · <span>AI for Neuroimaging</span></div>
+
+    <h2 class="section-title">AI for Neuroimaging</h2>
+    <div class="content">
+      <p>We explore foundation‑model style pretraining for neuroimaging to improve downstream tasks such as risk prediction and lesion quantification.</p>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta"><strong>Status:</strong> Active</div>
+      <div class="meta"><strong>Primary domain:</strong> Neuroimaging · Self‑supervised learning</div>
+      <div class="meta"><strong>Contact:</strong> <a href="mailto:chenm19@wfu.edu">chenm19@wfu.edu</a></div>
+    </div>
+
+    <h3 class="section-title">Goals</h3>
+    <ul class="people">
+      <li>Pretrain encoders with self‑supervised objectives on large unlabeled imaging datasets.</li>
+      <li>Evaluate transfer learning on Alzheimer’s‑related tasks.</li>
+      <li>Establish data quality checks and standardized preprocessing.</li>
+    </ul>
+
+    <h3 class="section-title">Getting Started</h3>
+    <ol class="pub-list">
+      <li>Set up compute environment and storage with version control for large files (e.g., git‑LFS).</li>
+      <li>Implement baseline SSL method and training loop.</li>
+      <li>Define downstream tasks and metrics; prepare evaluation scripts.</li>
+    </ol>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 Minghan Chen</p>
+    </div>
+  </footer>
+</body>
+</html>

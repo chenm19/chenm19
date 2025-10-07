@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Multi‑Omics Integration for Biomarker Discovery – Chen Lab</title>
+  <meta name="description" content="Integrating genomics, transcriptomics, proteomics and metabolomics for robust biomarkers." />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .breadcrumb { margin: 16px 0; color: var(--muted); }
+    .breadcrumb a { color: var(--muted); }
+    .content p { color: var(--muted); }
+    .meta-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin: 16px 0 8px; }
+    .meta { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; }
+    @media (max-width: 720px) { .meta-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <h1 class="site-title">Chen Lab</h1>
+        <p class="site-subtitle">AI & Computational Biology</p>
+      </div>
+      <nav class="nav">
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container section">
+    <div class="breadcrumb"><a href="../index.html">Home</a> · <span>Multi‑Omics Integration for Biomarker Discovery</span></div>
+
+    <h2 class="section-title">Multi‑Omics Integration for Biomarker Discovery</h2>
+    <div class="content">
+      <p>We develop integrative models to identify robust biomarkers across omics layers. We compare late‑fusion, shared representation learning, and graph‑based approaches to align signals across cohorts.</p>
+    </div>
+
+    <div class="meta-grid">
+      <div class="meta"><strong>Status:</strong> Active</div>
+      <div class="meta"><strong>Primary domain:</strong> Computational biology · Biomarkers</div>
+      <div class="meta"><strong>Contact:</strong> <a href="mailto:chenm19@wfu.edu">chenm19@wfu.edu</a></div>
+    </div>
+
+    <h3 class="section-title">Goals</h3>
+    <ul class="people">
+      <li>Normalize and batch‑correct omics tables; evaluate harmonization methods.</li>
+      <li>Train representation models (autoencoders, contrastive learning) to align modalities.</li>
+      <li>Validate biomarkers with cross‑cohort generalization and pathway enrichment.</li>
+    </ul>
+
+    <h3 class="section-title">Getting Started</h3>
+    <ol class="pub-list">
+      <li>Audit data availability and licensing; prepare a data dictionary.</li>
+      <li>Prototype embeddings with PCA/UMAP and autoencoders.</li>
+      <li>Define robustness checks (bootstrapping, leave‑cohort‑out).</li>
+    </ol>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 Minghan Chen</p>
+    </div>
+  </footer>
+</body>
+</html>

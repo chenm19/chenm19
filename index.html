@@ -4,82 +4,146 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dr. Minghan Chen – AI & Computational Biology Lab</title>
+  <meta name="description" content="Research group at Wake Forest University focusing on AI, Computational Biology, and Alzheimer's disease." />
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-  <header>
-    <h1>Dr. Minghan Chen</h1>
-    <p>Assistant Professor, Department of Computer Science<br>
-       <a href="https://cs.wfu.edu/" target="_blank">Wake Forest University</a></p>
-    <nav>
-      <a href="#research">Research</a>
-      <a href="#publications">Publications</a>
-      <a href="#team">Team</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <h1 class="site-title">AI & Computational Biology Lab</h1>
+        <p class="site-subtitle">Dr. Minghan Chen · Wake Forest University · Computer Science</p>
+      </div>
+      <nav class="nav">
+        <a href="#research">Research</a>
+        <a href="#projects">Projects</a>
+        <a href="#publications">Publications</a>
+        <a href="#team">Team</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <section id="about">
-      <h2>About</h2>
-      <p>
-        Welcome to the AI & Computational Biology Lab at Wake Forest University, led by 
-        Dr. Minghan Chen. Our research lies at the intersection of artificial intelligence, 
-        computational biology, and neuroscience, with a focus on understanding and 
-        combating neurodegenerative diseases such as Alzheimer’s disease.
-      </p>
-    </section>
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <h2>AI for Neuroscience & Precision Medicine</h2>
+        <p>
+          We build machine learning systems to decode biological signals and advance
+          understanding of neurodegenerative diseases, with a focus on Alzheimer's disease.
+        </p>
+        <div class="cta-row">
+          <a class="button" href="#projects">Explore Projects</a>
+          <a class="button ghost" href="#contact">Join the Lab</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="stat">
+          <span class="stat-number">3</span>
+          <span class="stat-label">Active projects</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">AI</span>
+          <span class="stat-label">for biomedicine</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">AD</span>
+          <span class="stat-label">Alzheimer's focus</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <section id="research">
-      <h2>Research Areas</h2>
-      <ul>
-        <li>Artificial Intelligence & Machine Learning in Biomedicine</li>
-        <li>Computational Modeling of Alzheimer’s Disease Progression</li>
-        <li>Multi-omics Data Integration for Neurodegenerative Disorders</li>
-        <li>Predictive Modeling for Precision Medicine</li>
+  <main id="main" class="container">
+    <section id="research" class="section">
+      <h3 class="section-title">Research Overview</h3>
+      <p>
+        Our group develops robust machine learning and statistical methods to connect multi‑modal biomedical data
+        (omics, imaging, EHR) with clinical outcomes. Current directions include: disease trajectory modeling,
+        multi‑omics integration, foundation models for biomedical signals, and trustworthy AI for healthcare.
+      </p>
+      <ul class="pill-list">
+        <li>Alzheimer’s disease progression</li>
+        <li>Multi‑omics integration</li>
+        <li>Neuroimaging + clinical data</li>
+        <li>Trustworthy & reproducible ML</li>
       </ul>
     </section>
 
-    <section id="publications">
-      <h2>Selected Publications</h2>
-      <ol>
+    <section id="projects" class="section">
+      <div class="section-head">
+        <h3 class="section-title">Featured Projects</h3>
+        <a class="see-all" href="#contact">Seeking collaborators →</a>
+      </div>
+      <div class="grid cards">
+        <article class="card">
+          <div class="card-badge">Student-Led</div>
+          <h4>Disease Prediction with Multi‑Modal Data</h4>
+          <p>
+            Predict Alzheimer’s disease onset and progression by combining neuroimaging, omics,
+            and clinical features with modern deep learning and probabilistic modeling.
+          </p>
+          <a class="card-link" href="projects/disease-prediction.html">Open project →</a>
+        </article>
+
+        <article class="card">
+          <h4>Multi‑Omics Integration for Biomarker Discovery</h4>
+          <p>
+            Integrative models to discover robust biomarkers by aligning genomics, transcriptomics,
+            proteomics, and metabolomics across cohorts.
+          </p>
+          <a class="card-link" href="projects/multi-omics-integration.html">Learn more →</a>
+        </article>
+
+        <article class="card">
+          <h4>AI for Neuroimaging</h4>
+          <p>
+            Self‑supervised and contrastive methods for structural and functional brain imaging to
+            quantify neurodegeneration and cognitive decline risk.
+          </p>
+          <a class="card-link" href="projects/ai-neuroimaging.html">Learn more →</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="publications" class="section">
+      <h3 class="section-title">Selected Publications</h3>
+      <ol class="pub-list">
         <li>
-          <b>Chen, M.</b>, et al. (2025). 
-          <i>Deep Learning Framework for Multi-Modal Alzheimer’s Disease Classification.</i><br>
-          <em>Bioinformatics Journal.</em>
+          Chen, M. et al. (2025). <em>Deep Learning for Multi‑Modal Alzheimer’s Disease Classification</em>.
+          <span class="pub-venue">Bioinformatics</span>.
         </li>
         <li>
-          <b>Chen, M.</b>, Smith, J., & Lee, A. (2024). 
-          <i>Integrative AI Models for Molecular Signatures of Neurodegeneration.</i><br>
-          <em>Nature Computational Science.</em>
+          Chen, M., Smith, J., Lee, A. (2024). <em>Integrative AI Models for Neurodegeneration</em>.
+          <span class="pub-venue">Nature Computational Science</span>.
         </li>
       </ol>
-      <p><a href="publications.html">View complete publication list →</a></p>
+      <p><a class="inline-link" href="#">Full list coming soon</a></p>
     </section>
 
-    <section id="team">
-      <h2>Research Team</h2>
-      <ul>
-        <li><b>Jane Li</b> – Ph.D. Student | Machine Learning for Neuroimaging</li>
-        <li><b>Robert Zhang</b> – M.S. Student | Computational Genomics</li>
-        <li><b>Emily Brown</b> – Undergraduate Researcher | AI for Healthcare</li>
+    <section id="team" class="section">
+      <h3 class="section-title">Team</h3>
+      <ul class="people">
+        <li><strong>Dr. Minghan Chen</strong> · PI</li>
+        <li><strong>Student Lead:</strong> TBD · Disease Prediction Project</li>
       </ul>
     </section>
 
-    <section id="contact">
-      <h2>Contact</h2>
+    <section id="contact" class="section">
+      <h3 class="section-title">Contact</h3>
       <p>
-        📍 Department of Computer Science, Wake Forest University (Winston-Salem, NC)<br>
-        ✉️ <a href="mailto:chenm19@wfu.edu">chenm19@wfu.edu</a><br>
-        🌐 <a href="https://scholar.google.com" target="_blank">Google Scholar</a> | 
-        <a href="https://orcid.org" target="_blank">ORCID</a>
+        Department of Computer Science, Wake Forest University (Winston‑Salem, NC)<br>
+        <a href="mailto:chenm19@wfu.edu">chenm19@wfu.edu</a><br>
+        <a href="https://cs.wfu.edu/" target="_blank" rel="noopener">cs.wfu.edu</a>
       </p>
     </section>
   </main>
 
-  <footer>
-    <p>© 2025 Minghan Chen | Wake Forest University</p>
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2025 Minghan Chen · Wake Forest University</p>
+    </div>
   </footer>
 </body>
 </html>
