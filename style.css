@@ -1,61 +1,104 @@
-:root {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --accent: #003366;
-}
-
+/* Basic Reset and Global Styles */
 body {
-  margin: 0;
-  background: #fafafa;
-  color: #222;
-  line-height: 1.6;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f7f9; /* Light, neutral background */
+    color: #333; /* Standard dark text */
 }
 
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* Header Styling - Primary Color is a Professional Blue */
 header {
-  background: var(--accent);
-  color: white;
-  padding: 2rem 1rem;
-  text-align: center;
+    background-color: #004c99; /* Deep, professional blue */
+    color: white;
+    padding: 50px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-header a {
-  color: #cde1ff;
-  text-decoration: none;
+header h1 {
+    margin: 0 0 10px;
+    font-size: 2.8em;
+    font-weight: 700;
 }
 
-header a:hover {
-  text-decoration: underline;
+header p {
+    font-size: 1.2em;
+    font-weight: 300;
 }
 
-nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0 0.6rem;
-  font-weight: 500;
+/* Main Content Headings */
+h2 {
+    color: #004c99;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 10px;
+    margin-top: 40px;
+    margin-bottom: 25px;
 }
 
-nav a:hover {
-  text-decoration: underline;
+/* About Section */
+.about p {
+    font-size: 1.1em;
+    margin-bottom: 15px;
 }
 
-main {
-  max-width: 850px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+/* Project Cards - Grid Layout */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
 }
 
-h1, h2 {
-  color: var(--accent);
+.project-card {
+    display: block; /* Make the entire card clickable */
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none; /* Remove underline from links */
+    color: #333;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-ul, ol {
-  padding-left: 1.25rem;
+.project-card:hover {
+    transform: translateY(-5px); /* Lift card on hover */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
 }
 
+.project-card h3 {
+    color: #004c99;
+    margin-top: 0;
+    font-size: 1.4em;
+}
+
+/* Specific Style for the Student-Developed Project */
+.student-project {
+    border: 3px solid #ff9900; /* Distinct border color for emphasis (orange/gold) */
+}
+
+/* Footer Styling */
 footer {
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.9rem;
-  color: #555;
-  background: #eee;
-  margin-top: 3rem;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9em;
+}
+
+footer a {
+    color: #ff9900;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
