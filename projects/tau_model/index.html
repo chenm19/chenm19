@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Generalizing Tau Progression Model</title>
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --teal-900:#0f3b46;
+      --teal-800:#134a57;
+      --teal-700:#175466;
+      --teal-600:#1d6a7d;
+      --teal-500:#21819a;
+      --panel:#ffffff;
+      --canvas:#f3f6f8;
+      --ink:#0B0F13;
+      --muted:#6b7b86;
+      --sage-light:#88B565;
+    }
+    body{ background:var(--canvas); color:var(--ink); font-size:18px; line-height:1.7; }
+    .card{ box-shadow:0 8px 24px rgba(0,0,0,.06); }
+    .img-frame{ background:#fff; border:1px solid #e2e8f0; border-radius:0.75rem; display:flex; align-items:center; justify-content:center; overflow:hidden; aspect-ratio:16/9; }
+    .section-label{ display:block; font-weight:700; font-size:1.75rem; color:var(--teal-700); margin-bottom:.75rem; }
+    h1.title{ text-shadow:2px 2px 4px rgba(0,0,0,.35); }
+  </style>
+</head>
+
+<body class="min-h-screen">
+
+  <!-- HEADER -->
+  <header class="bg-[var(--teal-800)] text-white py-10 text-center">
+    <h1 class="title text-5xl font-semibold tracking-tight">Generalizing Tau Progression Model</h1>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-12 gap-6">
+
+    <!-- RESEARCH SUMMARY -->
+    <section class="col-span-12">
+      <div class="bg-[var(--panel)] rounded-2xl p-8 card">
+        <span class="section-label text-3xl">Research Summary</span>
+        <p class="text-justify text-slate-800/90 text-[19px]">
+          This research focuses on developing Neural Operator–based surrogate models to simulate and generalize tau-protein progression in the human brain — a key process for understanding neurodegenerative diseases. These models learn the underlying spatiotemporal dynamics governed by partial differential equations (PDEs), serving as efficient data-driven surrogates for complex biophysical simulators. The framework employs Fourier Neural Operators (FNO) for global spectral learning, Wavelet Neural Operators (WNO) for localized multi-scale resolution, Graph Kernel Networks (GKN/MGKN) for topology-aware learning on the brain connectome, and DeepONets for functional mappings between biological parameters and temporal trajectories.
+        </p>
+      </div>
+    </section>
+
+    <!-- DATA DESCRIPTION -->
+    <section class="col-span-12">
+      <div class="bg-[var(--panel)] rounded-2xl p-8 card">
+        <span class="section-label text-3xl">Data Description</span>
+        <p class="text-justify text-slate-800/90 text-[19px] mb-6">
+          The dataset represents simulated tau-protein propagation dynamics across 30 brain nodes and 150 time steps. Each sample encodes variations in four biological parameters (γ₁, λ₁, δ, ε) influencing the PDE-based diffusion–reaction equations governing tau accumulation. The input vector combines these parameters with the initial tau distribution (τ₀) across nodes, while the output is the full temporal trajectory of tau evolution. Parameter ranges are log-scaled and normalized to ensure numerical stability and to enable generalization across unseen regimes.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-[var(--canvas)] p-5 rounded-xl border">
+            <h4 class="font-semibold text-lg text-[var(--teal-700)] mb-2">Input Format (X)</h4>
+            <ul class="list-disc ml-5 text-slate-700 text-[17px]">
+              <li>Biological Parameters: [γ₁, λ₁, δ, ε]</li>
+              <li>Initial Tau Distribution: τ₀ (30 nodes)</li>
+              <li>Total Input Dimension: 34</li>
+            </ul>
+          </div>
+          <div class="bg-[var(--canvas)] p-5 rounded-xl border">
+            <h4 class="font-semibold text-lg text-[var(--teal-700)] mb-2">Output Format (Y)</h4>
+            <ul class="list-disc ml-5 text-slate-700 text-[17px]">
+              <li>Tau Trajectory: τ(x,t) for 30 nodes × 150 time steps</li>
+              <li>Each trajectory predicted by a Neural Operator</li>
+              <li>Output normalized during training</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODEL SETUP & TRAINING (UI placeholders only) -->
+    <section class="col-span-12">
+      <div class="bg-[var(--panel)] rounded-2xl p-8 card">
+        <span class="section-label text-3xl">Model Setup & Training</span>
+
+        <div class="flex flex-wrap items-center justify-between gap-6">
+          <!-- Select X -->
+          <div class="flex items-center gap-2">
+            <label class="text-lg font-medium text-[var(--teal-700)]">Select X</label>
+            <button type="button" id="x-toggle" role="switch" aria-checked="false"
+              class="relative inline-flex h-7 w-12 items-center rounded-full bg-slate-300 transition ring-2 ring-white/20">
+              <span class="sr-only">Select X</span>
+              <span class="dot inline-block h-5 w-5 translate-x-1 rounded-full bg-white transition"></span>
+            </button>
+          </div>
+
+          <!-- Select Y -->
+          <div class="flex items-center gap-2">
+            <label class="text-lg font-medium text-[var(--teal-700)]">Select Y</label>
+            <button type="button" id="y-toggle" role="switch" aria-checked="false"
+              class="relative inline-flex h-7 w-12 items-center rounded-full bg-slate-300 transition ring-2 ring-white/20">
+              <span class="sr-only">Select Y</span>
+              <span class="dot inline-block h-5 w-5 translate-x-1 rounded-full bg-white transition"></span>
+            </button>
+          </div>
+
+          <!-- Train Model -->
+          <div class="flex items-center gap-3">
+            <label class="text-lg font-medium text-[var(--teal-700)]">Train Model</label>
+            <button type="button" id="train-toggle" role="switch" aria-checked="false"
+              class="relative inline-flex h-8 w-14 items-center rounded-full bg-slate-300 transition ring-2 ring-white/20">
+              <span class="sr-only">Train Model</span>
+              <span class="dot inline-block h-6 w-6 translate-x-1 rounded-full bg-white transition"></span>
+            </button>
+          </div>
+
+          <!-- Training Status -->
+          <div class="flex items-center gap-2">
+            <span class="text-base font-semibold text-slate-700">Status:</span>
+            <span id="train-status" class="text-base font-semibold text-emerald-700">Model trained earlier</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS & VISUALIZATION -->
+    <section class="col-span-12">
+      <div class="bg-[var(--panel)] rounded-2xl p-8 card">
+        <span class="section-label text-3xl">Results & Visualization</span>
+
+        <!-- Sample selector + Generate -->
+        <div class="mb-6 flex flex-wrap items-center gap-3">
+          <div class="flex flex-wrap items-center gap-3">
+            <label class="inline-flex items-center gap-2 px-3 py-2 rounded-full border bg-[color:rgba(136,181,101,0.15)] hover:bg-[color:rgba(136,181,101,0.25)] cursor-pointer text-lg">
+              <input type="radio" name="sample" value="sample1" class="accent-emerald-700" checked>
+              <span class="font-semibold">Sample 1</span>
+            </label>
+            <label class="inline-flex items-center gap-2 px-3 py-2 rounded-full border bg-[color:rgba(136,181,101,0.15)] hover:bg-[color:rgba(136,181,101,0.25)] cursor-pointer text-lg">
+              <input type="radio" name="sample" value="sample2" class="accent-emerald-700">
+              <span class="font-semibold">Sample 2</span>
+            </label>
+            <label class="inline-flex items-center gap-2 px-3 py-2 rounded-full border bg-[color:rgba(136,181,101,0.15)] hover:bg-[color:rgba(136,181,101,0.25)] cursor-pointer text-lg">
+              <input type="radio" name="sample" value="sample3" class="accent-emerald-700">
+              <span class="font-semibold">Sample 3</span>
+            </label>
+          </div>
+          <button id="generate-btn" class="ml-2 px-6 py-2 rounded-xl bg-[var(--teal-600)] text-white text-lg font-semibold hover:bg-[var(--teal-500)] transition shadow-lg ring-2 ring-white/10">
+            Generate
+          </button>
+        </div>
+
+        <div id="preview-wrap" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Loss -->
+          <article>
+            <div class="text-xl font-semibold text-slate-900 mb-1">Loss Curve</div>
+            <div class="img-frame">
+              <img id="img-loss" src="assets/sample1/loss.png" alt="Loss curve (sample 1)" class="w-full h-full object-contain" />
+            </div>
+          </article>
+
+          <!-- Trajectory -->
+          <article>
+            <div class="flex items-center justify-between mb-2">
+              <div>
+                <div class="text-xl font-semibold text-slate-900">Time Trajectory</div>
+                <p class="text-xs text-slate-500">Optional node selection (0–9)</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-xs text-slate-600">Node select</span>
+                <button id="node-switch" type="button" role="switch" aria-checked="false" class="relative inline-flex h-7 w-12 items-center rounded-full bg-slate-300 transition ring-2 ring-white/20">
+                  <span class="sr-only">Enable node select</span>
+                  <span class="dot inline-block h-5 w-5 translate-x-1 rounded-full bg-white transition"></span>
+                </button>
+              </div>
+            </div>
+
+            <div id="node-picker" class="mb-3 hidden">
+              <div class="flex flex-wrap gap-2">
+                <script>
+                  document.write([...Array(10).keys()].map(i=>`<button type="button" data-node="${i}" class='px-2 py-1 rounded-lg border text-xs'>${i}</button>`).join(''));
+                </script>
+              </div>
+            </div>
+
+            <div class="img-frame">
+              <img id="img-traj" src="assets/sample1/traj_node0.png" alt="Trajectory node 0" class="w-full h-full object-contain" />
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50">
+    <div id="modal-backdrop" class="absolute inset-0"></div>
+    <div class="relative max-w-6xl mx-auto my-10 bg-white rounded-2xl shadow-2xl ring-1 ring-slate-200 overflow-hidden">
+      <button id="modal-close" class="absolute top-3 right-3 px-3 py-1.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 text-sm">✕ Close</button>
+      <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <figure class="border rounded-xl p-3 bg-white">
+          <figcaption class="text-sm font-medium mb-2">Loss Curve</figcaption>
+          <img id="modal-loss" src="" alt="Loss curve" class="w-full h-full object-contain rounded-md">
+        </figure>
+        <figure class="border rounded-xl p-3 bg-white">
+          <figcaption class="text-sm font-medium mb-2">Time Trajectory</figcaption>
+          <img id="modal-traj" src="" alt="Trajectory" class="w-full h-full object-contain rounded-md">
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <!-- Behavior -->
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const state = { sample:'sample1', node:0, nodeEnabled:false };
+
+      // Elements
+      const radios = [...document.querySelectorAll('input[name="sample"]')];
+      const genBtn = document.getElementById('generate-btn');
+      const lossImg = document.getElementById('img-loss');
+      const trajImg = document.getElementById('img-traj');
+      const nodeSwitch = document.getElementById('node-switch');
+      const nodePicker = document.getElementById('node-picker');
+      const modal = document.getElementById('modal');
+      const mLoss = document.getElementById('modal-loss');
+      const mTraj = document.getElementById('modal-traj');
+      const mClose = document.getElementById('modal-close');
+      const mBackdrop = document.getElementById('modal-backdrop');
+      const previewWrap = document.getElementById('preview-wrap');
+
+      // UI toggles (X/Y/Train)
+      function makeToggle(btnId){
+        const btn = document.getElementById(btnId);
+        if(!btn) return;
+        btn.addEventListener('click', ()=>{
+          const on = btn.getAttribute('aria-checked') === 'true';
+          const dot = btn.querySelector('.dot');
+          if (on){
+            btn.setAttribute('aria-checked','false');
+            btn.classList.add('bg-slate-300'); btn.classList.remove('bg-[var(--teal-600)]');
+            dot.classList.replace('translate-x-6','translate-x-1');
+          } else {
+            btn.setAttribute('aria-checked','true');
+            btn.classList.remove('bg-slate-300'); btn.classList.add('bg-[var(--teal-600)]');
+            dot.classList.replace('translate-x-1','translate-x-6');
+          }
+        });
+      }
+      ['x-toggle','y-toggle','train-toggle'].forEach(makeToggle);
+
+      // Update preview images based on sample/node
+      function updatePreview(){
+        const base = `assets/${state.sample}`;
+        lossImg.src = `${base}/loss.png`;
+        trajImg.src = `${base}/traj_node${state.node}.png`;
+        trajImg.alt = `Trajectory node ${state.node}`;
+      }
+
+      // Sample radios
+      radios.forEach(r=>r.addEventListener('change', e=>{
+        state.sample = e.target.value;
+        updatePreview();
+      }));
+
+      // Node switch
+      function setNodeEnabled(on){
+        state.nodeEnabled = !!on;
+        nodeSwitch.setAttribute('aria-checked', on ? 'true':'false');
+        const dot = nodeSwitch.querySelector('.dot');
+        if(on){
+          nodeSwitch.classList.remove('bg-slate-300'); nodeSwitch.classList.add('bg-[var(--teal-600)]');
+          dot.classList.replace('translate-x-1','translate-x-6');
+          nodePicker.classList.remove('hidden');
+        } else {
+          nodeSwitch.classList.add('bg-slate-300'); nodeSwitch.classList.remove('bg-[var(--teal-600)]');
+          dot.classList.replace('translate-x-6','translate-x-1');
+          nodePicker.classList.add('hidden');
+        }
+      }
+      nodeSwitch.addEventListener('click',()=> setNodeEnabled(nodeSwitch.getAttribute('aria-checked')!=='true'));
+
+      // Node buttons
+      nodePicker.addEventListener('click', e=>{
+        if(e.target.matches('[data-node]')){
+          state.node = parseInt(e.target.getAttribute('data-node'),10);
+          nodePicker.querySelectorAll('[data-node]').forEach(b=>b.classList.remove('bg-emerald-700','text-white'));
+          e.target.classList.add('bg-emerald-700','text-white');
+          updatePreview();
+        }
+      });
+
+      // Modal
+      function openModal(){
+        const base = `assets/${state.sample}`;
+        mLoss.src = `${base}/loss.png`;
+        mTraj.src = `${base}/traj_node${state.node}.png`;
+        modal.classList.remove('hidden');
+        document.body.style.overflow='hidden';
+        previewWrap.classList.add('opacity-30');
+      }
+      function closeModal(){
+        modal.classList.add('hidden');
+        document.body.style.overflow='';
+        previewWrap.classList.remove('opacity-30');
+      }
+
+      genBtn.addEventListener('click',openModal);
+      mClose.addEventListener('click',closeModal);
+      mBackdrop.addEventListener('click',closeModal);
+      document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+      // init
+      updatePreview();
+      setNodeEnabled(false);
+    });
+  </script>
+</body>
+</html>
