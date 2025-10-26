@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Generalizing Tau Progression Model</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --sage-light:#88B565;
+      --sage-dark:#7BA857;
+      --teal-600:#1d6a7d;
+      --panel:#ffffff;
+      --canvas:#f3f6f8;
+      --ink:#0B0F13;
+      --muted:#6b7280;
+    }
+    body{ background:var(--canvas); color:var(--ink); font-size:18px; line-height:1.6; }
+    .hero-grad{ background:linear-gradient(180deg,var(--sage-dark),var(--sage-light)); }
+    .section-label{ background:var(--sage-light); color:var(--ink); display:inline-block; padding:0.4rem 1rem; border-radius:0.5rem; font-size:1.25rem; font-weight:700; }
+    .card{ box-shadow:0 8px 24px rgba(0,0,0,.06); }
+    .img-frame{ background:white; border:1px solid #e2e8f0; border-radius:0.75rem; display:flex; align-items:center; justify-content:center; overflow:hidden; aspect-ratio:16/9; }
+  </style>
+  <script>
+    // Small helper to add/remove classes
+    function cls(el, add=[], rem=[]) { if(!el) return; add.forEach(c=>el.classList.add(c)); rem.forEach(c=>el.classList.remove(c)); }
+  </script>
+</head>
+<body class="min-h-screen">
+  <!-- Header -->
+  <header class="hero-grad text-white text-center py-10">
+    <h1 class="text-5xl font-bold tracking-tight drop-shadow-[2px_2px_2px_rgba(0,0,0,0.4)]">Generalizing Tau Progression Model</h1>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-12 gap-6">
+
+    <!-- Research Summary -->
+    <section class="col-span-12">
+      <div class="bg-[var(--panel)] rounded-2xl p-8 card">
+        <span class="section-label mb-2 text-3xl">Research Summary</span>
+        <p class="text-slate-800 text-justify text-lg mt-4">
+          This research focuses on developing Neural Operator–based surrogate models to simulate and generalize tau-protein progression in the human brain — a key process for understanding neurodegenerative diseases. These models learn the underlying spatiotemporal dynamics governed by partial differential equations (PDEs), serving as efficient data-driven surrogates for complex biophysical simulators. The framework employs Fourier Neural Operators (FNO) for global spectral learning, Wavelet Neural Operators (WNO) for localized multi-scale resolution, Graph Kernel Networks (GKN/MGKN) for topology-aware learning on the brain connectome, and DeepONets for functional mappings between biological parameters and temporal trajectories.
+        </p>
+      </div>
+    </section>
+
+    <!-- Data Description -->
+    <section class="col-span-12">
+      <div class="bg-[var(--panel)] rounded-2xl p-8 card">
+        <span class="section-label mb-3 text-3xl">Data Description</span>
+        <h3 class="text-3xl font-semibold text-[var(--sage-dark)] mb-3 mt-4">Input & Output Formats</h3>
+        <table class="min-w-full text-sm mb-6">
+          <thead class="border-b border-slate-200 text-left">
+            <tr><th class="py-2 pr-4">Descriptor</th><th class="py-2 pr-4">Symbol</th><th class="py-2 pr-4">Shape</th><th class="py-2">Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr class="border-t border-slate-200"><td class="py-2 pr-4 font-medium">Input (X)</td><td class="py-2 pr-4">X = [γ₁, λ₁, δ, ε, τ₀]</td><td class="py-2 pr-4">[N, 34]</td><td class="py-2">4 parameters + 30-node initial tau.</td></tr>
+            <tr class="border-t border-slate-200"><td class="py-2 pr-4 font-medium">Output (Y)</td><td class="py-2 pr-4">Y = τ(t)</td><td class="py-2 pr-4">[N, 30, T]</td><td class="py-2">Tau trajectories over time horizon.</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="text-3xl font-semibold text-[var(--sage-dark)] mb-3">Varying Parameters & PDE Influence</h3>
+        <ul class="list-disc pl-6 text-slate-900 text-justify mb-6">
+          <li>γ₁ (Diffusion): controls spatial spread (∇·(γ₁∇τ)); higher γ₁ increases dispersion.</li>
+          <li>λ₁ (Clearance): defines decay rate (−λ₁τ), affecting stability.</li>
+          <li>δ (Coupling): modulates graph-Laplacian term δLτ for connectome transport.</li>
+          <li>ε (Noise): introduces stochastic forcing, representing biological uncertainty.</li>
+        </ul>
+
+        <h3 class="text-3xl font-semibold text-[var(--sage-dark)] mb-3">Parameter Ranges</h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="border border-slate-200 rounded-xl p-4 bg-[var(--sage-light)] bg-opacity-20"><div class="text-sm text-slate-600">γ₁</div><div class="text-lg font-semibold">[0.05, 0.50]</div></div>
+          <div class="border border-slate-200 rounded-xl p-4 bg-[var(--sage-light)] bg-opacity-20"><div class="text-sm text-slate-600">λ₁</div><div class="text-lg font-semibold">[0.001, 0.10]</div></div>
+          <div class="border border-slate-200 rounded-xl p-4 bg-[var(--sage-light)] bg-opacity-20"><div class="text-sm text-slate-600">δ</div><div class="text-lg font-semibold">[0.001, 0.05]</div></div>
+          <div class="border border-slate-200 rounded-xl p-4 bg-[var(--sage-light)] bg-opacity-20"><div class="text-sm text-slate-600">ε</div><div class="text-lg font-semibold">[0.001, 0.10]</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results and Visualization -->
+    <section class="col-span-12">
+      <div class="bg-[var(--panel)] rounded-2xl p-8 card">
+        <span class="section-label mb-3 text-3xl">Results and Visualization</span>
+        <p class="text-justify text-slate-700 mb-6">The results section presents the performance of various Neural Operator models in capturing the spatiotemporal evolution of tau-protein progression across brain regions. Each model’s predictions are evaluated against ground-truth trajectories using normalized mean squared error and correlation metrics. Visualization panels display representative test samples, including loss curves showing convergence behavior and time–trajectory plots illustrating how predicted tau concentrations evolve across nodes over time. The plots highlight the stability and generalization of operator learning under varying parameters and random seeds.</p>
+
+        <!-- Prominent sample selector + Generate -->
+        <div class="mb-6 flex flex-wrap items-center gap-3">
+          <div class="flex flex-wrap items-center gap-2">
+            <label class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-sage-200 bg-[color:rgba(136,181,101,0.15)] hover:bg-[color:rgba(136,181,101,0.25)] cursor-pointer text-lg">
+              <input type="radio" name="sample" value="sample1" class="accent-emerald-700" checked>
+              <span class="font-semibold">Sample 1</span>
+            </label>
+            <label class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-sage-200 bg-[color:rgba(136,181,101,0.15)] hover:bg-[color:rgba(136,181,101,0.25)] cursor-pointer text-lg">
+              <input type="radio" name="sample" value="sample2" class="accent-emerald-700">
+              <span class="font-semibold">Sample 2</span>
+            </label>
+            <label class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-sage-200 bg-[color:rgba(136,181,101,0.15)] hover:bg-[color:rgba(136,181,101,0.25)] cursor-pointer text-lg">
+              <input type="radio" name="sample" value="sample3" class="accent-emerald-700">
+              <span class="font-semibold">Sample 3</span>
+            </label>
+          </div>
+          <button id="generate-btn" class="ml-2 px-6 py-2 rounded-xl bg-[var(--teal-600)] text-white text-lg font-semibold hover:bg-[var(--sage-dark)] transition shadow-lg ring-2 ring-white/10" title="Open the selected sample in a popup">Generate</button>
+        </div>
+
+        <div id="preview-wrap" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <article>
+            <div class="text-xl font-semibold text-slate-900 mb-1">Loss Curve</div>
+            <div class="img-frame"><img id="img-loss" src="assets/sample1/loss.png" alt="Loss curve (sample 1)" class="w-full h-full object-contain"/></div>
+          </article>
+          <article>
+            <div class="flex items-center justify-between mb-2">
+              <div><div class="text-xl font-semibold text-slate-900">Time Trajectory</div><p class="text-xs text-slate-500">Optional node selection (0–9).</p></div>
+              <div class="flex items-center gap-3">
+                <span class="text-xs text-slate-600">Node select</span>
+                <button id="node-switch" type="button" role="switch" aria-checked="false" class="relative inline-flex h-7 w-12 items-center rounded-full bg-slate-300 transition ring-2 ring-white/20">
+                  <span class="sr-only">Enable node select</span>
+                  <span class="dot inline-block h-5 w-5 translate-x-1 rounded-full bg-white transition"></span>
+                </button>
+              </div>
+            </div>
+            <div id="node-picker" class="mb-3 hidden">
+              <div class="flex flex-wrap gap-2">
+                <button type="button" data-node="0" class="px-2 py-1 rounded-lg border text-xs">0</button>
+                <button type="button" data-node="1" class="px-2 py-1 rounded-lg border text-xs">1</button>
+                <button type="button" data-node="2" class="px-2 py-1 rounded-lg border text-xs">2</button>
+                <button type="button" data-node="3" class="px-2 py-1 rounded-lg border text-xs">3</button>
+                <button type="button" data-node="4" class="px-2 py-1 rounded-lg border text-xs">4</button>
+                <button type="button" data-node="5" class="px-2 py-1 rounded-lg border text-xs">5</button>
+                <button type="button" data-node="6" class="px-2 py-1 rounded-lg border text-xs">6</button>
+                <button type="button" data-node="7" class="px-2 py-1 rounded-lg border text-xs">7</button>
+                <button type="button" data-node="8" class="px-2 py-1 rounded-lg border text-xs">8</button>
+                <button type="button" data-node="9" class="px-2 py-1 rounded-lg border text-xs">9</button>
+              </div>
+            </div>
+            <div class="img-frame"><img id="img-traj" src="assets/sample1/traj_node0.png" alt="Time trajectory (sample 1, node 0)" class="w-full h-full object-contain"/></div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Template -->
+  <div id="modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50">
+    <div id="modal-backdrop" class="absolute inset-0"></div>
+    <div class="relative max-w-6xl mx-auto my-10 bg-white rounded-2xl shadow-2xl ring-1 ring-slate-200 overflow-hidden">
+      <button id="modal-close" class="absolute top-3 right-3 px-3 py-1.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 text-sm">✕ Close</button>
+      <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <figure class="border rounded-xl p-3 bg-white">
+          <figcaption class="text-sm font-medium mb-2">Loss Curve</figcaption>
+          <img id="modal-loss" src="" alt="Loss curve" class="w-full h-full object-contain rounded-md">
+        </figure>
+        <figure class="border rounded-xl p-3 bg-white">
+          <figcaption class="text-sm font-medium mb-2">Time Trajectory</figcaption>
+          <img id="modal-traj" src="" alt="Trajectory" class="w-full h-full object-contain rounded-md">
+        </figure>
+      </div>
+    </div>
+  </div>
+</main>
+
+  <!-- Modal Template -->
+  <div id="modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50">
+    <div class="absolute inset-0" onclick="closeModal()"></div>
+    <div class="relative max-w-6xl mx-auto my-10 bg-white rounded-2xl shadow-2xl ring-1 ring-slate-200 overflow-hidden">
+      <button onclick="closeModal()" class="absolute top-3 right-3 px-3 py-1.5 rounded-lg bg-slate-900 text-white hover:bg-slate-800 text-sm">✕ Close</button>
+      <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <figure class="border rounded-xl p-3 bg-white">
+          <figcaption class="text-sm font-medium mb-2">Loss Curve</figcaption>
+          <img id="modal-loss" src="" alt="Loss curve" class="w-full h-full object-contain rounded-md">
+        </figure>
+        <figure class="border rounded-xl p-3 bg-white">
+          <figcaption class="text-sm font-medium mb-2">Time Trajectory</figcaption>
+          <img id="modal-traj" src="" alt="Trajectory" class="w-full h-full object-contain rounded-md">
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function generateSample(){
+      const sample = document.querySelector('input[name="sample"]:checked').value;
+      document.getElementById('modal').classList.remove('hidden');
+      document.getElementById('modal-loss').src = `assets/${sample}/loss.png`;
+      document.getElementById('modal-traj').src = `assets/${sample}/traj_node0.png`;
+    }
+    function closeModal(){ document.getElementById('modal').classList.add('hidden'); }
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const state = { sample:'sample1', node:0, nodeEnabled:false };
+      const radios = Array.from(document.querySelectorAll('input[name="sample"]'));
+      const genBtn = document.getElementById('generate-btn');
+      const lossImg = document.getElementById('img-loss');
+      const trajImg = document.getElementById('img-traj');
+      const nodeSwitch = document.getElementById('node-switch');
+      const nodePicker = document.getElementById('node-picker');
+      const nodeButtons = nodePicker ? Array.from(nodePicker.querySelectorAll('[data-node]')) : [];
+      const modal = document.getElementById('modal');
+      const mLoss = document.getElementById('modal-loss');
+      const mTraj = document.getElementById('modal-traj');
+      const mClose = document.getElementById('modal-close');
+      const mBackdrop = document.getElementById('modal-backdrop');
+      const previewWrap = document.getElementById('preview-wrap');
+
+      function updatePreview(){
+        const base = `assets/${state.sample}`;
+        if (lossImg) lossImg.src = `${base}/loss.png`;
+        if (trajImg) trajImg.src = `${base}/traj_node${state.node}.png`;
+        if (trajImg) trajImg.alt = `Time trajectory (${state.sample}, node ${state.node})`;
+      }
+
+      // radio change -> update preview
+      radios.forEach(r=> r.addEventListener('change', (e)=>{ state.sample = e.target.value; updatePreview(); }));
+
+      // node switch toggle
+      function setNodeEnabled(on){
+        state.nodeEnabled = !!on;
+        nodeSwitch?.setAttribute('aria-checked', on ? 'true':'false');
+        const dot = nodeSwitch?.querySelector('.dot');
+        if (on){
+          cls(nodeSwitch, ['bg-[var(--teal-600)]'], ['bg-slate-300']);
+          if (dot){ cls(dot, ['translate-x-6'], ['translate-x-1']); }
+          nodePicker?.classList.remove('hidden');
+        } else {
+          cls(nodeSwitch, ['bg-slate-300'], ['bg-[var(--teal-600)]']);
+          if (dot){ cls(dot, ['translate-x-1'], ['translate-x-6']); }
+          nodePicker?.classList.add('hidden');
+        }
+      }
+      nodeSwitch?.addEventListener('click', ()=> setNodeEnabled(nodeSwitch.getAttribute('aria-checked') !== 'true'));
+
+      // node buttons -> set active + update preview
+      function setActiveNodeBtn(k){
+        nodeButtons.forEach(b=> b.classList.remove('bg-emerald-700','text-white'));
+        const target = nodeButtons.find(b=> b.getAttribute('data-node') == String(k));
+        if (target){ target.classList.add('bg-emerald-700','text-white'); }
+      }
+      nodeButtons.forEach(b=> b.addEventListener('click', ()=>{
+        const k = parseInt(b.getAttribute('data-node'),10);
+        if (!isNaN(k)){ state.node = k; setActiveNodeBtn(k); updatePreview(); }
+      }));
+
+      // initial
+      setNodeEnabled(false); setActiveNodeBtn(state.node); updatePreview();
+
+      // Generate -> open modal with current selection; dim previews so only popup is focal
+      function openModal(){
+        if (!modal) return;
+        const base = `assets/${state.sample}`;
+        if (mLoss) mLoss.src = `${base}/loss.png`;
+        if (mTraj) mTraj.src = `${base}/traj_node${state.node}.png`;
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        previewWrap?.setAttribute('aria-hidden','true');
+        previewWrap?.classList.add('opacity-30');
+      }
+      function closeModal(){
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+        previewWrap?.removeAttribute('aria-hidden');
+        previewWrap?.classList.remove('opacity-30');
+      }
+      genBtn?.addEventListener('click', openModal);
+      mClose?.addEventListener('click', closeModal);
+      mBackdrop?.addEventListener('click', closeModal);
+      document.addEventListener('keydown', (e)=>{ if (e.key==='Escape') closeModal(); });
+    });
+  </script>
+</body>
+</html>
